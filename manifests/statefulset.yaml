@@ -1,14 +1,14 @@
 apiVersion: apps/v1beta1
 kind: StatefulSet
 metadata:
-  name: rabbitmq
+  name: $APP
 spec:
-  serviceName: rabbitmq
+  serviceName: $APP
   replicas: 3
   template:
     metadata:
       labels:
-        app: rabbitmq
+        app: $APP
     spec:
       serviceAccountName: rabbitmq
       terminationGracePeriodSeconds: 10
