@@ -1,0 +1,32 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: $APP
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: $APP
+    spec:
+      securityContext:
+        runAsUser: 0
+      containers:
+      - name: $APP
+        image: $REMOTE_TAG
+        # `Never` as we are not using registry in our `minikube` setup
+        imagePullPolicy: Always
+        env:
+          # For consupmption by rabbitmq-env.conf
+          - name: MY_POD_IP
+            valueFrom:
+              fieldRef:
+                fieldPath: status.podIP
+          # start.sh will store this value to a proper location in filesystem
+          - name: ERLANG_COOKIE
+            valueFrom:
+              secretKeyRef:
+                name: erlang.cookie
+                key: erlang.cookie
+        command:
+          - "/start.sh"
