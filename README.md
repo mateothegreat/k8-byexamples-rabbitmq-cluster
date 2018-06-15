@@ -40,6 +40,8 @@ Targets:
 
 # Install
 
+Make sure to run `git submodule update --init` first.
+
 ```sh
 $ make install
 
