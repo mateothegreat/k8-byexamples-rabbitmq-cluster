@@ -14,7 +14,7 @@ spec:
       terminationGracePeriodSeconds: 10
       containers:        
       - name: rabbitmq-k8s
-        image: rabbitmq:3.7
+        image: rabbitmq:3.7-alpine
         volumeMounts:
           - name: config-volume
             mountPath: /etc/rabbitmq
