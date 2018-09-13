@@ -56,6 +56,18 @@ $ make install
 
 Now you can open your browser to http://rabbitmq:15672 (user/pass = guest).
 
+## Adding a user
+
+```sh
+$ make adduser
+
+kubectl exec rabbitmq-0 -it -- rabbitmqctl add_user admin P@55w0rd!!
+Adding user "admin" ...
+kubectl exec rabbitmq-0 -it -- rabbitmqctl set_user_tags admin administrator
+Setting tags for user "admin" to [administrator] ...
+kubectl exec rabbitmq-0 -it -- rabbitmqctl set_permissions -p / admin ".*" ".*" ".*"
+Setting permissions for user "admin" in vhost "/" ...
+```
 ## Scaling
 
 ```sh
