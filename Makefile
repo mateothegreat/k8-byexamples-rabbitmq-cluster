@@ -11,9 +11,9 @@ NS                  ?= default
 APP                 ?= rabbitmq
 IMAGE               ?= cluster-4/docker-rabbitmq-autocluster:latest
 REMOTE_TAG  		?= gcr.io/streaming-platform-devqa/$(IMAGE)
-ADMIN_USER			?= admin
-ADMIN_PASSWORD      ?= P@55w0rd!!
-REPLICAS			?= 5
+ADMIN_USER			?= rabbitmq
+ADMIN_PASSWORD      ?= agaeq14
+REPLICAS			?= 3
 export
 
 ## Scale rabbitmq pods from the stateful set (make scale REPLICAS=3)

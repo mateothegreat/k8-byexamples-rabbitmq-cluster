@@ -4,9 +4,9 @@ metadata:
   name: rabbitmq
   labels:
     app: rabbitmq
-    type: LoadBalancer  
+#    type: LoadBalancer
 spec:
-  type: NodePort
+  type: LoadBalancer
   ports:
    - name: http
      protocol: TCP
@@ -18,5 +18,7 @@ spec:
      port: 5672
      targetPort: 5672
      nodePort: 30672
+   - port: 4369
+     name: epmd
   selector:
     app: rabbitmq

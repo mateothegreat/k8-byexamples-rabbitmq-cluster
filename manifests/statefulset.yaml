@@ -4,17 +4,17 @@ metadata:
   name: $APP
 spec:
   serviceName: $APP
-  replicas: 3
+  replicas: 8
   template:
     metadata:
       labels:
         app: $APP
     spec:
       serviceAccountName: rabbitmq
-      terminationGracePeriodSeconds: 10
-      containers:        
-      - name: rabbitmq-k8s
-        image: rabbitmq:3.7-alpine
+      terminationGracePeriodSeconds: 30
+      containers:
+      - name: rabbitmq
+        image: rabbitmq:3.7.17-management
         volumeMounts:
           - name: config-volume
             mountPath: /etc/rabbitmq
@@ -28,14 +28,14 @@ spec:
         livenessProbe:
           exec:
             command: ["rabbitmqctl", "status"]
-          initialDelaySeconds: 30
-          timeoutSeconds: 10
+          initialDelaySeconds: 60
+          timeoutSeconds: 30
         readinessProbe:
           exec:
             command: ["rabbitmqctl", "status"]
-          initialDelaySeconds: 10
-          timeoutSeconds: 10
-        imagePullPolicy: Always
+          initialDelaySeconds: 60
+          timeoutSeconds: 30
+        imagePullPolicy: IfNotPresent
         env:
           - name: MY_POD_IP
             valueFrom:
@@ -48,7 +48,7 @@ spec:
           - name: K8S_SERVICE_NAME
             value: "rabbitmq"
           - name: RABBITMQ_ERLANG_COOKIE
-            value: "mycookie" 
+            value: "mycookie"
       volumes:
         - name: config-volume
           configMap:
